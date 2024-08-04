@@ -8,11 +8,11 @@ document.querySelectorAll('.turnoButton').forEach(button => {
         // Mostrar el número de turno
         document.getElementById('turnoInfo').innerHTML = `<p>Tu número de turno es: ${turno}</p>`;
 
-        // Generar la URL para el código QR
-        const turnoUrl = `${window.location.hostname}:3000/ver-turno?turno=${turno}&tipoTurno=${tipoTurno}`;
+        // Mensaje directo para el QR
+        const mensajeQR = `Tu turno es: ${turno} - Tipo: ${tipoTurno}`;
 
-        // Generar el código QR como una imagen
-        QRCode.toDataURL(turnoUrl, { errorCorrectionLevel: 'H' }, (err, url) => {
+        // Generar el código QR con el mensaje
+        QRCode.toDataURL(mensajeQR, { errorCorrectionLevel: 'H' }, (err, url) => {
             if (err) {
                 console.error('Error generating QR code:', err);
                 return;

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Turno Generado</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.0/build/qrcode.min.js"></script>
+    <style>
+        .container {
+            text-align: center;
+            margin-top: 50px;
+        }
+        .download-link {
+            display: block;
+            margin-top: 20px;
+            font-size: 16px;
+            color: #007bff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 id="turnoInfo"></h2>
+        <div id="qrCode"></div>
+        <a id="downloadLink" class="download-link">Descargar Código QR</a>
+    </div>
+    <script>
+        function getParameterByName(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
+        window.onload = function() {
+            const turno = getParameterByName('turno');
+            const tipoTurno = getParameterByName('tipoTurno');
+
+            if (turno && tipoTurno) {
+                const mensajeQR = `Tu turno es: ${turno} - Tipo: ${tipoTurno}`;
+
+                // Mostrar el número de turno
+                document.getElementById('turnoInfo').innerText = `Tu número de turno es: ${turno}`;
+
+                // Generar el código QR
+                QRCode.toDataURL(mensajeQR, { errorCorrectionLevel: 'H' }, (err, url) => {
+                    if (err) {
+                        console.error('Error generating QR code:', err);
+                        return;
+                    }
+
+                    // Mostrar el código QR en una imagen
+                    const qrImage = document.createElement('img');
+                    qrImage.src = url;
+                    qrImage.alt = 'Código QR';
+                    qrImage.style.display = 'block';
+                    qrImage.style.margin = '20px auto';
+                    qrImage.style.maxWidth = '100%';
+
+                    // Añadir la imagen del QR
+                    const qrCodeContainer = document.getElementById('qrCode');
+                    qrCodeContainer.innerHTML = '';
+                    qrCodeContainer.appendChild(qrImage);
+
+                    // Configurar el enlace de descarga
+                    const downloadLink = document.getElementById('downloadLink');
+                    downloadLink.href = url;
+                    downloadLink.download = `turno-${turno}.png`;
+                });
+            } else {
+                document.getElementById('turnoInfo').innerText = 'Datos del turno no encontrados.';
+            }
+        }
+    </script>
+</body>
+</html>

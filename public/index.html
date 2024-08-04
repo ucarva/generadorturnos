@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Turno - Banco</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.0/build/qrcode.min.js"></script>
+</head>
+<body>
+    <header>
+        <img src="img/logos-45.png" alt="Imagen banner" style="display: block; margin: 0 auto; max-width: 100%; height: auto;">
+    </header>
+    <div class="container">
+        <h2>¡Bienvenido! Toma tu turno:</h2>
+        
+        <form id="turnoForm">
+            <button type="button" class="turnoButton" data-tipo="asesoria">Asesoría</button>
+            <button type="button" class="turnoButton" data-tipo="credito">Crédito</button>
+            <button type="button" class="turnoButton" data-tipo="caja">Caja</button>
+        </form>
+        <div id="turnoInfo"></div>
+        <div id="qrCode"></div>
+    </div>
+    <footer>
+        © 2024 Crediservir - Todos los derechos reservados
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>

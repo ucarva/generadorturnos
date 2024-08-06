@@ -5,12 +5,32 @@ const port = 3000;
 app.use(express.json());
 app.use(express.static('public')); // Servir archivos estáticos
 
+// Variable para mantener el estado del último número de turno generado
+let ultimoNumeroTurno = 0;
+
 // Ruta para generar el turno
 app.post('/generar-turno', (req, res) => {
     const { tipoTurno } = req.body;
-    
-    // Lógica para generar un número de turno
-    const turno = Math.floor(Math.random() * 1000); // Genera un número de turno aleatorio
+    let letraTipoTurno;
+
+    // Determinar la letra correspondiente al tipo de turno
+    switch (tipoTurno) {
+        case 'credito':
+            letraTipoTurno = 'C';
+            break;
+        case 'asesoria':
+            letraTipoTurno = 'A';
+            break;
+        case 'caja':
+            letraTipoTurno = 'K';
+            break;
+        default:
+            return res.status(400).json({ error: 'Tipo de turno no válido' });
+    }
+
+    // Generar un número de turno consecutivo
+    ultimoNumeroTurno++;
+    const turno = `${letraTipoTurno}${ultimoNumeroTurno}`;
 
     res.json({ turno });
 });
